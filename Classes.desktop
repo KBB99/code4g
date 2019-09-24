@@ -1,0 +1,6 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Link to Classes
+Type=Link
+URL=http://localhost:3000/index?micropost[name]=New%20Project#members
+Icon=text-html

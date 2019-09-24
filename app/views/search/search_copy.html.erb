@@ -1,0 +1,7 @@
+<h3>Search Results</h3>
+<ul class="users">
+    <%= render @users %>
+</ul>
+<% if @users.blank? %>
+  <h4>No results were found for <%= params[:search] %>.</h4>
+<% end %>

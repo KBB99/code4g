@@ -1,0 +1,11 @@
+<div class="input-group input-group-dark input-group-round">
+    <div class="input-group-prepend">
+        <%# <span class="input-group-text">
+            <i class="material-icons">search</i>
+        </span> %>
+    </div>
+    <%= form_tag(search_index_path, :method => "get") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search the database", class: "form-control fontrol-dark" %>
+    <% end %>
+    <%# input type="search" class="form-control form-control-dark" placeholder="Search" aria-label="Search app" aria-describedby="search-app"> %>
+</div>

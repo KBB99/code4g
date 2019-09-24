@@ -1,0 +1,20 @@
+<% provide(:title, "Projects")%>
+<h1 id = 'projects'>Projects</h1>
+<%if logged_in?%>
+    <div>
+
+    <h3><%= link_to 'Link to Add Your Own Project', new_project_url%> </h3>
+    </div>
+    <% if @microposts.any? %>
+      <h3> Open Projects</h3>
+      <ol class="microposts">
+        <%= render @microposts %>
+      </ol>
+      <%= will_paginate @microposts %>
+    <% end %>
+  <%else%>
+  <p id= "blurb">
+    One day this page will be filled with tales of successful projects that revolutionized the world. Yet until that day, we're left with this.
+  </p>
+<%end%>
+

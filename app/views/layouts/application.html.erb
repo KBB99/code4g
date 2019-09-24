@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <%# <%= render 'layouts/rails_default'%>
+    <%= render 'layouts/header'%>
+  </head>
+  
+  <body>
+    <%if logged_in?%>
+      <%= render 'layouts/side'%>
+      <div class = "container">
+      </div>
+    <%else%>
+      <% flash.each do |message_type, message| %>
+          <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+      <% end %>
+      <%= yield %>
+    <%end%>
+    </div>
+    <%= render 'layouts/footer'%>
+  </body>
+</html>

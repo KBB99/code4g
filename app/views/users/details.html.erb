@@ -1,0 +1,42 @@
+<% provide(:title, 'Experience Details') %>
+<h1>Experience</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :year, "Graduation Year" %>
+      <%= f.text_field :year, placeholder: '2021', class: 'form-control' %>
+
+      <%= f.label :campus%>
+      <%= f.select(:campus) do %>
+        <% [['Shanghai', 1], ['New York', 2],['Abu Dhabi',3]].each do |c| -%>
+            <%= content_tag(:option, c.first, value: c.first) %>
+        <% end %>
+      <% end %>
+
+      <%= f.label :major%>
+      <%= f.text_field :major, placeholder: 'Global China Studies', class: 'form-control' %>
+
+      <%= f.label :interests%>
+      <%= f.text_field :interests, placeholder: 'Literature, Films, and Painting', class: 'form-control' %>
+
+      <%= f.label :internships %>
+      <%= f.text_field :internships, placeholder: 'Google', class: 'form-control' %>
+
+      <%= f.label :connections %>
+      <%= f.text_field :connections, placeholder: 'Argentinian Bankers', class: 'form-control' %>
+
+      <%= f.label :techincal %>
+      <%= f.text_field :technical, placeholder: 'Ruby on Rails', class: 'form-control' %>
+
+      <%= f.label :spoken_languages %>
+      <%= f.text_field :spoken_languages, placeholder: 'Dutch',  class: 'form-control' %>
+
+      <%= f.label :other %>
+      <%= f.text_field :other, placeholder: 'I made a short YouTube video', class: 'form-control' %>
+
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+      <%end%>
+    </div>
+  </div>

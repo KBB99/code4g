@@ -1,0 +1,19 @@
+<% provide(:title, 'Users') %>
+<% if @search_params%>
+  <%= @users.where(@search_params) %>
+<%else%>
+  <h1>All Users</h1>
+  <div class="fixed-top-left">
+    <%= render '/search/index'%>
+  </div>
+
+  <ul class="users">
+    <% for i in @users %>
+      <%if i.activated%>
+        <%= render i%>
+      <%end%>
+    <%end%>
+  </ul>
+
+  <%= will_paginate %>
+<%end%>

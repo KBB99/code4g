@@ -1,0 +1,173 @@
+<div id="user-profile-2" class="user-profile">
+			<div class="tab-content no-border padding-24">
+				<div id="home" class="tab-pane in active">
+					<div class="row">
+						<%if current_user.id == @user.id %>
+								<div class="col-xs-12 center">
+									<%=link_to controller: "pictures", action: "profile_picture", id: @user.id do %>
+									<span class="profile-picture">
+										<%if current_user.fotitos.first%>
+											
+											<%= image_tag current_user.fotitos.first.picture.url, id: 'profile_pic'%>
+										<%else%>
+											<img class="editable img-responsive" alt=" Avatar" id="avatar2" src="/avatar.png">
+										<%end%>
+									</span>
+									<%end%>
+							
+						<%else%>
+
+						<div class="col-xs-12 center">
+							<span class="profile-picture">
+							<%if @user.fotitos.first%>			
+								<%= image_tag @user.fotitos.first.picture.url, id: 'profile_pic'%>
+						<%else%>
+							<img class="editable img-responsive" alt=" Avatar" id="avatar2" src="/avatar.png">
+						<%end%>
+							</span>
+						<%end%>
+
+							<h4 class="blue">
+								<span class="middle"><%= @user.name%></span>
+							</h4>
+							<%if @user.id != current_user.id%>
+								<span class="bigger-110"><%= link_to "Message Me", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post'%></span>
+							<%end%>
+						</div><!-- /.col -->
+
+						<div class="col-xs-12 col-sm-9">
+
+							<div class="profile-user-info">
+
+                                <div class="profile-info-row">
+									<div class="profile-info-name"> Email </div>
+
+									<div class="profile-info-value">
+										<span><%= @user.email%></span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Campus </div>
+
+									<div class="profile-info-value">
+										<i class="fa fa-map-marker light-orange bigger-110"></i>
+										<span><%= @user.campus%></span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Position </div>
+
+									<div class="profile-info-value">
+										<span><%= @user.position%></span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Graduation Year </div>
+
+									<div class="profile-info-value">
+										<span><%= @user.year%></span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Major </div>
+
+									<div class="profile-info-value">
+										<span><%= @user.major%></span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Minor </div>
+
+									<div class="profile-info-value">
+										<span><%= @user.minor%></span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Spoken Languages </div>
+
+									<div class="profile-info-value">
+										<span><%= @user.spoken_languages%></span>
+									</div>
+								</div>
+
+                                <div class="profile-info-row">
+									<div class="profile-info-name"> Coding Experience </div>
+
+									<div class="profile-info-value">
+										<span><%= @user.technical%></span>
+									</div>
+								</div>
+
+                                <div class="profile-info-row">
+									<div class="profile-info-name"> Interests </div>
+
+									<div class="profile-info-value">
+										<span><%= @user.interests%></span>
+									</div>
+								</div>
+
+                                <div class="profile-info-row">
+									<div class="profile-info-name"> Connections </div>
+
+									<div class="profile-info-value">
+										<span><%= @user.connections%></span>
+									</div>
+								</div>
+
+
+                                <div class="profile-info-row">
+									<div class="profile-info-name"> Internships </div>
+
+									<div class="profile-info-value">
+										<span><%= @user.internships%></span>
+									</div>
+								</div>
+                                
+							</div>
+
+							<div class="hr hr-8 dotted"></div>
+
+							<div class="profile-user-info">
+
+
+								<div class="profile-info-row">
+									<div class="profile-info-name">
+										<i class="middle ace-icon fa fa-twitter-square bigger-150 light-blue"></i>
+									</div>
+								</div>
+							</div>
+
+						</div><!-- /.col -->
+
+					</div><!-- /.row -->
+
+					<div class="space-20"></div>
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="widget-box transparent">
+								<div class="widget-header widget-header-small">
+									<h4 class="widget-title smaller">
+										<i class="ace-icon fa fa-check-square-o bigger-110"></i>
+										Other
+									</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+										<p>
+											<%= @user.other%>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+	</div>

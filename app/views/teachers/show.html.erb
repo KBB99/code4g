@@ -1,0 +1,262 @@
+    <body>
+
+        <div class="layout layout-nav-side">
+            <div class="main-container">
+                
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-11 col-xl-10">
+                            <div class="page-header mb-4">
+                                <div class="media">
+                                    
+                                    <div class="media-body ml-3">
+                                        <h1 class="mb-0"><%= @teacher.name%></h1>
+                                        <p class="lead"><%= @teacher.position%></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="nav nav-tabs nav-fill">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="true">Comments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tasks" role="tab" aria-controls="tasks" aria-selected="false">Classes</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                
+                                <div class="tab-pane fade show active" id="projects" role="tabpanel" aria-labelledby="projects-tab" data-filter-list="content-list-body">
+                                    <div class="content-list">
+                                        <div class="row content-list-head">
+                                            <div class="col-auto">
+                                                <h3>Comments</h3>
+                                                <button class="btn btn-round" data-toggle="modal" data-target="#note-add-modal">
+                                                    <i class="material-icons">add</i>
+                                                </button>
+                                            </div>
+                                            <form class="col-md-auto">
+                                                <div class="input-group input-group-round">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="material-icons">filter_list</i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="search" class="form-control filter-list-input" placeholder="Filter notes" aria-label="Filter Projects" aria-describedby="filter-projects">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!--end of content list head-->
+                                        <div class="content-list-body filter-list-1540911837819">
+                                            <%@teacher.notes.reverse.each do |n|%>
+                                            <div class="card card-note">
+                                                <div class="card-header">
+                                                
+                                                        <div class="media align-items-center">
+                                                        <%if n.user != -1%>
+                                                             <%@creator = User.find(n.user)%>
+                                                            <%= link_to @creator, data_toggle:"tooltip", title: @creator.first_name do%>
+                                                                <%unless @creator.picture.nil?%>
+                                                                    <%unless @creator.picture.url.nil?%>
+                                                                        <%= image_tag @creator.picture.url, class: "avatar  filter-by-alt", alt: @creator.first_name, data_filter_by: "alt"%>
+                                                                    <%else%>
+                                                                        <%= image_tag "/avatar.png", class: "avatar filter-by-alt", alt: @creator.first_name, data_filter_by: "alt"%>
+                                                                    <%end%>
+                                                    
+                                                            <%else%>
+                                                            
+                                                                <%= image_tag "/avatar.png", class: "avatar filter-by-alt", alt:@creator.first_name, data_filter_by: "alt"%>
+                                                                
+                                                                <%end%>
+                                                            <%end%>
+                                                 <%else%>
+                                                    <%= image_tag "/avatar.png", class: "avatar filter-by-alt", alt: "Anonymous", data_filter_by: "alt"%>
+                                                <%end%>
+                                                        <div class="media-body">
+                                                            <h6 class="mb-0 H6-filter-by-text" data-filter-by="text"><%= n.title%></h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <span data-filter-by="text" class="SPAN-filter-by-text"><%=time_ago_in_words(n.created_at)%></span>
+                                                        <div class="ml-1 dropdown card-options">
+                                                            <button class="btn-options" type="button" id="note-dropdown-button-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="material-icons">more_vert</i>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                
+                                                                <%unless @creator.nil?%>
+                                                                    <%if @creator.id == current_user.id%>
+                                                                        <%= link_to 'Delete', note_destroy_url(:id => n.id), class: "dropdown-item text-danger"%>
+                                                                    <%end%>
+                                                                <%end%>
+                                                                <%# <a class="dropdown-item text-danger" href="#"></a> %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body DIV-filter-by-text" data-filter-by="text">
+                                                    <p><%= n.content%></p>
+                                                </div>
+                                                <div class = "card-header">
+                                                    <div class= "media align-items-center">
+                                                    </div>
+                                                    <div class = "media-body">
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <%if n.likes.where(user_id: current_user.id).empty?%>
+                                                            <form  id="classes-add-modal" tabindex="-1" role="dialog" aria-labelledby="note-add-modal" aria-hidden="true" action="/NewLike" method="post">
+                                                                <%= hidden_field_tag :authenticity_token, form_authenticity_token%>
+                                                                <%= hidden_field_tag :note, n.id%>
+                                                                
+                                                                    <b><%= n.likes.count%></b>
+                                                                    <button role="button" class="btn btn-primary" type="submit">
+                                                                        Like
+                                                                    </button>
+                                                                    
+
+                                                                
+                                                                
+                                                            </form>
+                                                        <%else%>
+                                                            <form  id="classes-add-modal" tabindex="-1" role="dialog" aria-labelledby="note-add-modal" aria-hidden="true" action="/KillLike" method="post">
+                                                            <%= hidden_field_tag :authenticity_token, form_authenticity_token%>
+                                                            <%= hidden_field_tag :note, n.id%>
+                                                            <b><%= n.likes.count%></b>
+                                                                <button role="button" class="btn btn-primary" type="submit">
+                                                                    Unlike
+                                                                </button>
+                                                                
+
+                                                            </form>
+                                                        <%end%>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          <%end%>
+                                        </div>
+                                        <!--end of content list body-->
+                                    </div>
+                                    <!--end of content list-->
+                                </div>
+                                <div class="tab-pane fade" id="tasks" role="tabpanel" aria-labelledby="team-tab" data-filter-list="content-list-body">
+                                    <div class="row content-list-head">
+                                        <div class="col-auto">
+                                            <h3>Classes</h3>
+                                            <button class="btn btn-round" data-toggle="modal" data-target="#classes-add-modal">
+                                                <i class="material-icons">add</i>
+                                            </button>
+                                        </div>
+                                        <form class="col-md-auto">
+                                            <div class="input-group input-group-round">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">filter_list</i>
+                                                    </span>
+                                                </div>
+                                                <input type="search" class="form-control filter-list-input" placeholder="Filter classes" aria-label="Filter Team" aria-describedby="filter-team">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!--end of content list head-->
+                                    <div class="content-list-body row">
+                                        <%unless @teacher.subjects.all.empty?%>
+                                            <%@teacher.subjects.each do |t|%>
+                                                <div class="col-md-6">
+                                                    <div class="card card-team">
+                                                        <div class="card-body">
+                                                            <div class="card-title">
+                                                                <a href="#">
+                                                                    
+                                                                    <h5 data-filter-by="text"><%=link_to t.name, t%></h5>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <%end%>
+                                        <%end%>
+                                    </div>
+                                    <!--end of content list-->
+                                </div>
+                                <!--end of tab-->
+                            </div>
+                            
+                            <form class="modal fade" id="note-add-modal" tabindex="-1" role="dialog" aria-labelledby="note-add-modal" aria-hidden="true" action="/TeacherNote" method="post">
+                                <%= hidden_field_tag :authenticity_token, form_authenticity_token%>
+                                <%= hidden_field_tag :teacher, @teacher.id%>
+                                <%= hidden_field_tag :user, current_user.id%>
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">New Note</h5>
+                                            <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </div>
+                                        <!--end of modal head-->
+                                        <div class="modal-body">
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-3">Title</label>
+                                                <input class="form-control col" type="text" placeholder="Note title" name="note-name">
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-3">Text</label>
+                                                <textarea class="form-control col" rows="6" placeholder="Body text for note" name="note-description"></textarea>
+                                            </div>
+                                            <div class="form-group-users filter-list-1542642753522">
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" name="anonymous" id="anonymous">
+                                                <label class="custom-control-label" for="anonymous">
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="h6 mb-0 SPAN-filter-by-text" data-filter-by="text">Anonymous</span>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <!--end of modal body-->
+                                        <div class="modal-footer">
+                                            <button role="button" class="btn btn-primary" type="submit">
+                                                Create Note
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <form class="modal fade" id="classes-add-modal" tabindex="-1" role="dialog" aria-labelledby="note-add-modal" aria-hidden="true" action="/AddClass" method="post">
+                                <%= hidden_field_tag :authenticity_token, form_authenticity_token%>
+                                <%= hidden_field_tag :teacher, @teacher.id%>
+                                <%= hidden_field_tag :user, current_user.id%>
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Add Class</h5>
+                                            <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </div>
+                                        <!--end of modal head-->
+                                        <div class="modal-body">
+                                            <div class="form-group row align-items-center">
+                                                <label class="col-3">Name</label>
+                                                <input class="form-control col" type="text" placeholder="Class name" name="note-name">
+                                            </div>
+                                        </div>
+                                        <!--end of modal body-->
+                                        <div class="modal-footer">
+                                            <button role="button" class="btn btn-primary" type="submit">
+                                                Add Class
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+
+</html>

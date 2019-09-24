@@ -1,0 +1,27 @@
+
+
+<%unless message.user_id.nil?%>
+    <%# <%byebug%>
+    <%@sender = User.find(message.user_id) %>
+    <div class="media chat-item">
+    
+        
+        <%unless @sender.picture.url.nil?%>
+            <%=image_tag @sender.picture.url, atl: @sender.first_name, class: "avatar"%>
+        <%else%>
+            <%=image_tag '/avatar.png', atl: @sender.first_name, class: "avatar"%>
+            <%# <img alt="Peggy" src="/pages/assets/img/avatar-female-2.jpg" class="avatar"> %>
+        <%end%>
+        <%# <img alt="Peggy" src="/pages/assets/img/avatar-female-2.jpg" class="avatar"> %>
+        <div class="media-body">
+            <div class="chat-item-title">
+                <span class="chat-item-author SPAN-filter-by-text" data-filter-by="text"><%=@sender.first_name%></span>
+                <span data-filter-by="text" class="SPAN-filter-by-text"><%= time_ago_in_words(message.created_at)%></span>
+            </div>
+            <div class="chat-item-body DIV-filter-by-text" data-filter-by="text">
+                <p><%=sanitize markdown_to_html(message.body)%></p>
+            </div>
+
+        </div>
+    </div>
+    <%end%>

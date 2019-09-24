@@ -1,0 +1,31 @@
+<div class="ui segment">
+  <h3 id='mailbox_header'>Mailbox</h3>
+
+  <div class="ui list" id='mail_list'>
+    <div class="item">
+      <% @conversations.each do |conversation| %>
+        <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+          <% if conversation.sender_id == current_user.id %>
+            <% recipient = User.find(conversation.recipient_id) %>
+          <% else %>
+            <% recipient = User.find(conversation.sender_id) %>
+          <% end %>
+          <div class="profile-info-row">
+            <%if conversation.messages.last%>
+              <% if conversation.messages.last.read == false && conversation.messages.last.user_id != current_user.id%>
+                <div class="profile-info-name">New Message From: </div>
+              <%else%>
+                <div class="profile-info-name">Go To: </div>
+              <%end%>
+            <%else%>
+              <div class="profile-info-name">Go To: </div>
+            <%end%>
+              <div class="profile-info-value">
+								<span><%= link_to recipient.name, conversation_messages_path(conversation)%></span>
+								</div>
+						</div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

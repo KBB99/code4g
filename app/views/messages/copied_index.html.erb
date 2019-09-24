@@ -1,0 +1,104 @@
+<!DOCTYPE html><html class=''>
+<body id="body_entire_message">
+
+<div id="frame">
+	<div id="sidepanel">
+		<div id="profile">
+			<div class="wrap">
+				<p><%= @me.name%></p>
+				<i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
+			</div>
+		</div>
+		<%# <div id="search">
+			<label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+			<input type="text" placeholder="Search contacts..." />
+		</div> %>
+		<div id="contacts">
+			<ul>
+        <%@conversations.each do |conversation|%>
+          <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id%>
+            <% if conversation.sender_id == @me.id %>
+              <% recipient = User.find(conversation.recipient_id) %>
+              <%# <% if Message.find(conversation.id).nil? %>
+                <%# <% read = Message.find(conversation.id).read%>
+              <li class="contact busy">
+                <div class="wrap">
+                  <%# <span class="contact-status active"></span> %>
+                  <%=link_to conversation_messages_path(conversation), :action => 'go' do%>
+                    <div class="meta">
+                      <p class="name"><%=recipient.name%></p>
+                      <%# <p class="preview"><%= Message.find(conversation.id).body%></p>
+                    </div>
+                  </div>
+                  <%end%>
+              </li>
+            <% else %> 
+              <% recipient = User.find(conversation.sender_id) %>
+              <li class="contact busy">
+              <%=link_to conversation_messages_path(conversation), :action => 'go' do%>
+
+                <p class="name"><%=recipient.name%></p>
+                <%end%>
+              </li>
+            <%end%>
+            <%end%>
+            <%end%>  
+			</ul>
+		</div>
+		<div id="bottom-bar">
+      <a href= '/users'>
+			  <button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add contact</span></button>
+      </a>
+		</div>
+	</div>
+	<div class="content">
+		<div class="contact-profile">
+      <%if @friend.name == @me.name do%>
+        <p><%= @other.name %></p>
+      <%end%>
+      <%else%>
+        <p><%= @friend.name %></p>
+      <%end%>
+      <%if @friend.name != @me.name do%>
+        <p><%= @friend.name %></p>
+      <%end%>
+      <%else%>
+        <p><%= @other.name %></p>
+      <%end%>
+			<div class="social-media">
+				<i class="fa fa-facebook" aria-hidden="true"></i>
+				<i class="fa fa-twitter" aria-hidden="true"></i>
+				 <i class="fa fa-instagram" aria-hidden="true"></i>
+			</div>
+		</div>
+		<div class="messages">
+			<ul>
+        <% @messages.each do |message| %>
+          <%if message.body%>
+            <% user = User.find(message.user_id) %>
+            <% if message.user_id == @me.id%>
+              <li class="replies">
+            <% else%>
+              <li class="sent">
+            <%end%>
+              <p>
+                <%= message.body %>
+              </p>
+            </li>
+            <%end%>
+        <%end%>
+			</ul>
+		</div>
+		<div class="message-input">
+			<div class="wrap">
+      <%= form_for [@conversation, @message], html: {class: "ui reply form"} do |f|%>
+			  <%= f.text_area :body, class: "form-control"%>
+        <%= f.text_field :user_id, value: current_user.id,type:"hidden"%>
+			  <button class="submit">Send<% f.submit %></i></button>
+      <%end%>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body></html>

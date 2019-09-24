@@ -1,0 +1,37 @@
+<div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-11 col-xl-9">
+                            <section class="py-4 py-lg-5">
+                        
+                                <h1 class="display-4 mb-3">Search Results</h1>
+                                <p class="lead">
+                                    Anyone familiar with your search criteria will be listed below
+                                </p>
+                            </section>
+                            <section>
+                              
+                              <%@users.each do |u|%>
+                              
+                                <div class="row">
+                                  <%@name = u.first_name + ' ' + u.last_name%>
+                                  <%=link_to u, data_toggle: "tooltip", title: @name do%>
+                                    
+                                    <%if u.picture%>
+                                      <%unless u.picture.url.nil?%>
+                                        <%= image_tag u.picture.url, class: "avatar avatar-lg", data_title: @name, data_toggle: "tooltip", alt:"image"%>
+                                    <%# <img alt="Image" src="/avatar" class="avatar avatar-lg" data-title="Peggy Brown" data-toggle="tooltip" /> %>
+                                        <%else%>
+                                      <%= image_tag "/avatar.png", class: "avatar avatar-lg", data_title: @name, data_toggle: "tooltip", alt:"image"%>
+                                    <%end%>
+                                    <%else%>
+                                      <%= image_tag "/avatar.png", class: "avatar avatar-lg", data_title: @name, data_toggle: "tooltip", alt:"image"%>
+                                    <%end%>
+                                  <%end%>  
+                                </div>
+                              <%end%>  
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                                

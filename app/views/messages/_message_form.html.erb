@@ -1,0 +1,7 @@
+<%= form_for @message, remote: true, authenticity_token: true, html: {class: "chat-form"} do |f|%>
+    <%=f.hidden_field :micropost_id, value: @project.id %>
+    <%= f.text_field :user_id, value: current_user.id, type: "hidden"%>
+    <%= f.text_area :body, class: "form-control", placeholder: "Type message", rows: "1", style: "overflow: hidden; overflow-wrap: break-word; resize: none; height: 35px;", data: {textarea: "body"}%>
+
+    <%= f.submit "Send", :style => 'display: none;', :id => 'chat-send'%>
+<%end%>

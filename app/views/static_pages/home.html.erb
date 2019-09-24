@@ -1,0 +1,9 @@
+<% if logged_in?%>
+<% else %>
+  <div class="center jumbotron"s>
+    <h1>Welcome to Connect4G</h1>
+    <h1></h1>
+
+    <%= link_to "Get started now!", signup_path, class: "btn btn-lg btn-primary" %>
+  </div>
+<%end%>

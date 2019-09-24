@@ -1,0 +1,38 @@
+
+<%= csrf_meta_tags%>
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload'%>
+
+<div class="collapse sidebar-floating" id="floating-chat">
+    <div class="sidebar-content">
+        <div class="chat-module" data-filter-list="chat-module-body">
+            <div class="chat-module-top">
+                <form>
+                    <div class="input-group input-group-round">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="material-icons">search</i>
+                            </span>
+                        </div>
+                        <input type="search" class="form-control filter-list-input" placeholder="Search chat" aria-label="Search Chat" aria-describedby="search-chat">
+                    </div>
+                </form>
+                    <div class="chat-module-body filter-list-1540911837798" id="messages-table">
+                    <div class="media chat-item">
+                    </div>
+                    <%if @project.messages.any? do%>
+                        
+                        <%= render partial: 'messages/message', collection: @project.messages%>
+                    <%end%>
+                    <%else%>
+                        <%@none = 'None'%>
+                    <%end%>
+                    </div>
+            </div>
+            <div class="chat-module-bottom">
+                <%= render partial: 'messages/message_form', locals: {message: @message, micropost: @project}%>
+            
+            </div>
+        </div>
+    </div>
+</div>
+

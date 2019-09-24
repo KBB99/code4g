@@ -1,0 +1,43 @@
+
+    <body>
+        <div class="layout layout-nav-side">
+            <div class="main-container">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-11 col-xl-10">
+                            <div class="page-header">
+                                <h1>Your Activities &#x2615;</h1>
+                                <p class="lead">Start doing awesome things in an instant</p>     
+                            </div>
+                            <hr>
+                            <ul class="nav nav-tabs nav-fill">
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#members" role="tab" aria-controls="members" aria-selected="true">Classes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="false">Projects</a>
+                                </li>
+                            </ul>
+                            <%= render 'shared/members'%>
+                            <form class="modal fade" id="user-invite-modal" tabindex="-1" role="dialog" aria-labelledby="user-invite-modal" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <%= render 'shared/InviteUser'%>
+                                </div>
+                            </form>
+                            <form class="modal fade" id="team-manage-modal" tabindex="-1" role="dialog" aria-labelledby="team-manage-modal" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <%= render 'shared/TeamManagement'%>
+                                </div>
+                            </form>
+                            <form class="modal fade" id="project-add-modal" tabindex="-1" role="dialog" aria-labelledby="project-add-modal" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <%= render "/microposts/NewProject"%>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+

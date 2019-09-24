@@ -1,0 +1,91 @@
+<div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-11 col-xl-9">
+                            <section class="py-4 py-lg-5">
+                                <div class="mb-3 d-flex">
+                                    <img alt="Pipeline" src="https://goodlogo.com/images/logos/new_york_university_nyu_logo_3400.gif" class="avatar avatar-lg mr-1">
+                                    
+                                </div>
+                                <h1 class="display-4 mb-3">New York University</h1>
+                                <p class="lead">
+                                    All the projects open to members of NYU are listed below
+                                </p>
+                            </section>
+                            <section>
+                                <div class="row">
+                                <%unless @projects.nil?%>
+                                                
+    
+                                                <%@projects.each do |project|%>
+                                                <%if project.public%>
+                                                <div class="col-lg-6">
+                                                    <div class="card card-project">
+
+                                                        <%# <div class="progress">
+                                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div> %>
+                                                        
+                                                        <div class="card-body">
+                                                            <div class="dropdown card-options">
+                                                                <button class="btn-options" type="button" id="project-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="material-icons">more_vert</i>
+                                                                </button>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                <%unless project.users.include?(current_user)%>
+                                                                    <%= link_to 'Join', join_url(:id => project.id), class: "dropdown-item"%>
+                                                                <%end%>
+                                                                <%if project.user_id == current_user.id%>
+                                                                        <%= link_to 'Delete', project_destroy_url(:id => project.id), class: "dropdown-item text-danger"%>
+                                                                <%end%>
+                                                                    <%# <a class="dropdown-item" href="#">Join</a> %>
+                                                                    <a class="dropdown-item" href="#">Share</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-title">
+                                                                <a href="#">
+                                                                
+                                                                    <h5 data-filter-by="text"><%= project.name%></h5>
+                                                                </a>
+                                                            </div>
+                                                            <p class="card-text"><%=project.content%></p>
+                                                            
+                                                            <ul class="avatars">
+                                                            <%project.users.each do |u| %>
+                                                                <li>
+                                                                    <%= link_to u, data_toggle:"tooltip", title: u.first_name do%>
+                                                                    <%unless u.picture.nil?%>
+                                                                        <%unless u.picture.url.nil?%>
+                                                                            <%= image_tag u.picture.url, class: "avatar", alt: u.first_name, data_filter_by: "alt"%>
+                                                                        <%else%>
+                                                                            <%= image_tag "/avatar.png", class: "avatar", alt: u.first_name, data_filter_by: "alt"%>
+                                                                        <%end%>
+                                                                    <%else%>
+                                                                    <%# <a href="#" data-toggle="tooltip" title="Kenny"> %>
+                                                                        <%= image_tag "/avatar.png", class: "avatar", alt:u.first_name, data_filter_by: "alt"%>
+                                                                        <%# <img alt="Kenny Tran" class="avatar" src="pages/assets/img/avatar-male-6.jpg" data-filter-by="alt" > %>
+                                                                    </a>
+                                                                        <%end%>
+                                                                    <%end%>
+                                                                    
+                                                                    <%# <%else%>
+                                                                        <%# <%= img "/avatar", class: "avatar", data_filter_by: "alt"%>
+                                                                    <%# <%end%>
+                                                                </li>
+
+                                                            <%end %>
+                                                            </ul>
+                                                            
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <%end%>
+                                            
+                                <%end%>
+                                <%end%>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                                
