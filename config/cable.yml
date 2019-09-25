@@ -6,4 +6,4 @@ test:
 
 production:
   adapter: redis
-  url: redis://redistogo:fa397de80f0783a755388a6913ed4c67@spinyfin.redistogo.com:11305/
+  url: REPLACE WITH REDDIS URL

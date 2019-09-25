@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-SampleApp::Application.config.secret_key_base = 'ab2db85febacac6e274ec3526ae863cb53ac32a9bbb3f64a2335db04db95f29d5a23498ad85be431bfa8e2cc3cfd8c601973c47bb891f8286db6dd94489d6899'
+SampleApp::Application.config.secret_key_base = "GENERATE NEW SECRET KEY BASE"
